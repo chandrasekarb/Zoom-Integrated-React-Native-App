@@ -9,6 +9,7 @@ $ react-native link react-native-zoom-us
 # Android
 
 Add repository to android/build.gradle:
+```
 allprojects {
     repositories {
         flatDir {
@@ -16,16 +17,20 @@ allprojects {
         }
     }
 }  
+```
 
 Set minSdkVersion to 21
+```
 buildscript {
     ext {
         minSdkVersion = 21
     }
 }
+```
 
 If you have problem with multiDex go to your project's android/app/build.gradle and under android.defaultSettings add the following:
 
+```
 android {
     defaultConfig {
         multiDexEnabled true
@@ -33,19 +38,22 @@ android {
     }
     ...
 }
+```
 
-## Usage
+# Usage
 
 import ZoomUs from 'react-native-zoom-us';
 
+```
 // initialize minimal
 await ZoomUs.initialize({
   clientKey: '...',
   clientSecret: '...',
   domain: 'zoom.us'
 })
+```
 
-
+```
 // Join Meeting
 await ZoomUs.joinMeeting({
   autoConnectAudio: true,
@@ -53,5 +61,6 @@ await ZoomUs.joinMeeting({
   meetingNumber: '...',
   password: '...',
 })
+```
 
 
