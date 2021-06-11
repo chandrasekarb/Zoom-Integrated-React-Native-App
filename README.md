@@ -1,8 +1,10 @@
 # Zoom-Integrated-React-Native-App
 
 # Getting started
+```
 $ npm install react-native-zoom-us
 $ react-native link react-native-zoom-us
+```
 
 # Installation
 
