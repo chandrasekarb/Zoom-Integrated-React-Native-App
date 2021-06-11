@@ -67,7 +67,7 @@ await ZoomUs.joinMeeting({
 
 # References 
 
-https://www.npmjs.com/package/react-native-zoom-us
-https://github.com/mieszko4/react-native-zoom-us-test
+- https://www.npmjs.com/package/react-native-zoom-us
+- https://github.com/mieszko4/react-native-zoom-us-test
 
 
