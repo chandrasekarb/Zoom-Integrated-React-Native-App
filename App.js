@@ -13,12 +13,14 @@ import {SafeAreaView,ScrollView,StatusBar,StyleSheet,Text,TextInput,TouchableOpa
 import {Colors,DebugInstructions,Header,LearnMoreLinks,ReloadInstructions} from 'react-native/Libraries/NewAppScreen';
 
 import ZoomUs from 'react-native-zoom-us';
-
+import {extractDataFromJoinLink} from './extractDataFromJoinLink';
 
 const App: () => Node = () => {
 
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
+  const [url, setUrl] = useState('');
+
   const [isInitialized, setIsInitialized] = useState(false);
 
   const isDarkMode = useColorScheme() === 'dark';
@@ -32,8 +34,8 @@ const App: () => Node = () => {
     (async () => {
       try {
         const initializeResult = await ZoomUs.initialize({
-          clientKey: '...',
-          clientSecret: '...',
+          clientKey: 'glHNOrtN1uMWogQ7CI8gT5QBFSP3BmAxryGJ',
+          clientSecret: 'cB8gAGZHVunb9yKOiBctQW9mhKouMPKWtyNq',
           domain: 'zoom.us'
         });
 
@@ -66,8 +68,32 @@ const App: () => Node = () => {
     }
   };
 
+  const joinMeetingUsingUrl = async () => {
+    try {
+      const dataFromLink = extractDataFromJoinLink(url);
+
+      const joinMeetingResult = await ZoomUs.joinMeeting({
+        autoConnectAudio: true,
+        userName: 'sekar',
+        meetingNumber: dataFromLink.meetingNumber,
+        password: dataFromLink.password,
+      });
+
+      console.log({joinMeetingResult});
+      setUrl('');
+
+    } catch (e) {
+      alert('Error Could not execute joinMeeting');
+      console.error(e);
+    }
+  };
+
   const joinMeeting1 = () => {
-    alert('You id: '+id+' and password: '+password);
+    const dataFromLink = extractDataFromJoinLink("https://zoom.us/j/96451150701?pwd=cDBpRS9XQkJrUjBPWklGVll0ZUx5UT09");
+    console.log(dataFromLink.meetingNumber);
+    console.log(dataFromLink.password);
+
+    alert('You id: '+dataFromLink.meetingNumber+' and password: '+dataFromLink.password);
   }
 
 
@@ -76,20 +102,38 @@ const App: () => Node = () => {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
         <View style={styles.pageContainer}>
-          <Text style={styles.pageTitle}> Welcome to SekarZoomSDK</Text>
+          <Text style={styles.pageTitle}> Welcome to GetSetUp ZoomSDK</Text>
 
-          <TextInput style={styles.textInput} placeholder="Enter Meeting Id"
-            value={id}
-            onChangeText={value => setId(value)}/>
-          <TextInput style={styles.textInput} placeholder="Enter Meeting Password"
-            value={password}
-            onChangeText={value => setPassword(value)}/>
+          <View style={styles.pageContainer}>
+            <Text style={styles.pageTitle1}> Join with Id and Password</Text>
 
-          <TouchableOpacity onPress={joinMeeting}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Join Meeting</Text>
-            </View>
-          </TouchableOpacity>
+            <TextInput style={styles.textInput} placeholder="Enter Meeting Id"
+              value={id}
+              onChangeText={value => setId(value)}/>
+            <TextInput style={styles.textInput} placeholder="Enter Meeting Password"
+              value={password}
+              onChangeText={value => setPassword(value)}/>
+
+            <TouchableOpacity onPress={joinMeeting}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Join Meeting</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.pageContainer}>
+            <Text style={styles.pageTitle1}> Join with Invite URL</Text>
+
+            <TextInput style={styles.urlInput} placeholder="Enter Meeting URL"
+              value={url}
+              onChangeText={value => setUrl(value)}/>
+
+            <TouchableOpacity onPress={joinMeetingUsingUrl}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Join Meeting</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
 
         </View>
       </ScrollView>
@@ -108,7 +152,13 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '600',
     color: 'blue',
-    marginBottom: 50,
+    marginBottom: 30,
+  },
+  pageTitle1: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: 'black',
+    marginBottom: 10,
   },
   textInput: {
     height: 40,
@@ -117,9 +167,16 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1
   },
+  urlInput: {
+    height: 40,
+    width: 300,
+    marginTop: 10,
+    borderColor: 'gray',
+    borderWidth: 1
+  },
   button: {
     height: 46,
-    marginTop: 30,
+    marginTop: 20,
     width: 220,
     alignItems: 'center',
     backgroundColor: '#2196F3',
