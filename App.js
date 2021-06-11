@@ -34,8 +34,8 @@ const App: () => Node = () => {
     (async () => {
       try {
         const initializeResult = await ZoomUs.initialize({
-          clientKey: 'glHNOrtN1uMWogQ7CI8gT5QBFSP3BmAxryGJ',
-          clientSecret: 'cB8gAGZHVunb9yKOiBctQW9mhKouMPKWtyNq',
+          clientKey: '...',
+          clientSecret: '...',
           domain: 'zoom.us'
         });
 
@@ -87,14 +87,6 @@ const App: () => Node = () => {
       console.error(e);
     }
   };
-
-  const joinMeeting1 = () => {
-    const dataFromLink = extractDataFromJoinLink("https://zoom.us/j/96451150701?pwd=cDBpRS9XQkJrUjBPWklGVll0ZUx5UT09");
-    console.log(dataFromLink.meetingNumber);
-    console.log(dataFromLink.password);
-
-    alert('You id: '+dataFromLink.meetingNumber+' and password: '+dataFromLink.password);
-  }
 
 
   return (
