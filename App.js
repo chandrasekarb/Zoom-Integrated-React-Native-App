@@ -34,8 +34,8 @@ const App: () => Node = () => {
     (async () => {
       try {
         const initializeResult = await ZoomUs.initialize({
-          clientKey: '..',
-          clientSecret: '..',
+          clientKey: '...',
+          clientSecret: '...',
           domain: 'zoom.us'
         });
 
