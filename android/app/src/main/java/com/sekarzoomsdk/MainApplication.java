@@ -8,6 +8,7 @@ import ch.milosz.reactnative.RNZoomUsPackage;
 import ch.milosz.reactnative.RNZoomUsPackage;
 import ch.milosz.reactnative.RNZoomUsPackage;
 import ch.milosz.reactnative.RNZoomUsPackage;
+import ch.milosz.reactnative.RNZoomUsPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
